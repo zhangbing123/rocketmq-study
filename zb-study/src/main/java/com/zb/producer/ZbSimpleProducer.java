@@ -2,7 +2,6 @@ package com.zb.producer;
 
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
-import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.exception.RemotingException;
 
@@ -15,11 +14,7 @@ public class ZbSimpleProducer {
 
     public static void main(String[] args) throws MQClientException, RemotingException, InterruptedException, MQBrokerException {
 
-        DefaultMQProducer producer = new DefaultMQProducer("my-producerGroup");
-        //配置nameserv的地址
-        producer.setNamesrvAddr("127.0.0.1:9876");
-        //启动producer
-        producer.start();
+        ZbProducer producer = new ZbProducer("my-producerGroup", "127.0.0.1:9876", false);
 
         //构建消息
         Message message = new Message("myTopic01", "hello world consumer".getBytes());

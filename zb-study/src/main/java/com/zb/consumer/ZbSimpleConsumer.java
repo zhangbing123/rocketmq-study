@@ -23,9 +23,9 @@ public class ZbSimpleConsumer {
         //配置nameserv地址
         consumer.setNamesrvAddr("127.0.0.1:9876");
         //订阅topic：myTopic01 tags= *
-        consumer.subscribe("myTopic01", "*");
+        consumer.subscribe("transactionTopic", "*");
 
-        //可以配置广播模式
+        //可以配置广播模式：消费组中的所有消费者都可以消费的到
 //        consumer.setMessageModel(MessageModel.BROADCASTING);
 
         //注册监听器 进行消息的监听以及接收

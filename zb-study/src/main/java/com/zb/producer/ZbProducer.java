@@ -15,19 +15,12 @@ import java.util.List;
  **/
 public class ZbProducer {
 
-    private String producerGroup;
-
-    private String nameSvr;
-
     private TransactionMQProducer transactionMQProducer;
 
     private DefaultMQProducer mqProducer;
 
-    private MQProducer producer;
 
     public ZbProducer(String producerGroup, String nameSvr, boolean isTransaction) {
-        this.producerGroup = producerGroup;
-        this.nameSvr = nameSvr;
         if (isTransaction) {
             transactionMQProducer = new TransactionMQProducer(producerGroup);
             mqProducer = transactionMQProducer;

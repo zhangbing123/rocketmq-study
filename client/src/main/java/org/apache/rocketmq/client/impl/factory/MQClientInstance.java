@@ -232,17 +232,38 @@ public class MQClientInstance {
                         this.mQClientAPIImpl.fetchNameServerAddr();
                     }
                     // Start request-response channel
+                    /**
+                     * 启动netty 处理客户端请求
+                     */
                     this.mQClientAPIImpl.start();
                     // Start various schedule tasks
+                    /**
+                     * 启动一些定时任务
+                     * 1.每隔2分钟去检测namesrv的变化
+                     * 2.每隔30s从nameserver获取topic的路由信息有没有发生变化，或者说有没有新的topic路由信息
+                     * 3.每隔30s清除下线的broker
+                     * 4.每隔5s持久化所有的消费进度
+                     * 5.每隔1分钟检测线程池大小是否需要调整
+                     */
                     this.startScheduledTask();
                     // Start pull service
+                    /**
+                     * 启动拉取消息服务
+                     */
                     this.pullMessageService.start();
                     // Start rebalance service
+                    /**
+                     * 启动负载均衡服务
+                     */
                     this.rebalanceService.start();
                     // Start push service
+                    /**
+                     * 主要调用this.mQClientFactory.sendHeartbeatToAllBrokerWithLock();方法 发送心跳
+                     * 还会启动一个定时器  定时清除过期的请求
+                     */
                     this.defaultMQProducer.getDefaultMQProducerImpl().start(false);
                     log.info("the client factory [{}] start OK", this.clientId);
-                    this.serviceState = ServiceState.RUNNING;
+                    this.serviceState = ServiceState.RUNNING;//设置启动状态
                     break;
                 case START_FAILED:
                     throw new MQClientException("The Factory object[" + this.getClientId() + "] has been created before, and failed.", null);

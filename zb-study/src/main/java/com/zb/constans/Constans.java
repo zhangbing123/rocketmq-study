@@ -15,4 +15,5 @@ public class Constans {
     public final static String TRANSACTION_TOPIC = "transaction_topic";
     public final static String ORDERLY_TOPIC = "orderly_topic";
     public final static String DELAY_TOPIC = "delay_topic";
+    public final static String PULL_TOPIC = "pull_topic";
 }

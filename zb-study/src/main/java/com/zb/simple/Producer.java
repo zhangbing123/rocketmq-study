@@ -24,11 +24,16 @@ public class Producer {
         producer.start();
 
         //构建消息
-        for (int i = 0; i < 10; i++) {
-            Message message = new Message(SIMPLE_TOPIC, "tags-2", ("send single msg:" + i).getBytes());
-            SendResult send = producer.send(message);
-            System.out.println("消息发送成功:" + send);
-        }
+//        for (int i = 0; i < 10; i++) {
+//            Message message = new Message(SIMPLE_TOPIC, "tags-2", ("send single msg:" + i).getBytes());
+//            SendResult send = producer.send(message);
+//            System.out.println("消息发送成功:" + send);
+//        }
+
+        Message message = new Message(SIMPLE_TOPIC, "tags-2", ("send single msg:" + 2).getBytes());
+        SendResult send = producer.send(message);
+        System.out.println("消息发送成功:" + send);
+
 
         //消息发送完毕  关闭生产者
         producer.shutdown();

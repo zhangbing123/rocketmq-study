@@ -33,15 +33,14 @@ public class Consumer {
 
         consumer.registerMessageListener((MessageListenerConcurrently) (msgs, context) -> {
             System.out.println(Thread.currentThread().getName()+"开始消费消息....");
-            try {
-                Thread.currentThread().sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             for (MessageExt msg : msgs) {
                 System.out.println("消费消息：" + new String(msg.getBody()));
             }
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;//消息确认消费成功
+//            return ConsumeConcurrentlyStatus.RECONSUME_LATER;//触发消息消费重试
+//            return null;//触发消息消费重试
+//            throw new RuntimeException("消费异常");//触发消息重试
+
         });//注册消息监听
 
         consumer.start();
